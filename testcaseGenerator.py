@@ -38,7 +38,7 @@ class MainWindow:
                 f.close()
 
     def initMainWindowUI(self):
-        self.root.title('Testcase Generator')
+        self.root.title('Testcase Generator 1.0')
         # self.root.iconbitmap('favicon.ico')
         self.root.iconbitmap(self.rootpath + 'appdata\\asset\\favicon.ico')
 

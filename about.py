@@ -13,7 +13,7 @@ class About:
         self.about = Toplevel()
         
         w = 501
-        h = 170
+        h = 240
         ws = self.about.winfo_screenwidth()
         hs = self.about.winfo_screenheight()
         x = (ws/2) - (w/2)
@@ -29,10 +29,17 @@ class About:
         txt = Text(self.about, padx=10, pady=10, font=("Consolas", 10), wrap='word')
         self.hyperlink = HyperlinkManager.HyperlinkManager(txt)
         txt.tag_configure('bold', font='Consolas 11 bold')
-        txt.insert(INSERT, 'Testcase Generator ', 'bold')
+        txt.tag_configure('header', font='Consolas 15 bold')
+        txt.insert(INSERT, '             Testcase Generator\n', 'header')
+        txt.insert(INSERT, '                            version: 1.0\n')
+        txt.insert(END, '\nTestcase Generator ', 'bold')
         txt.insert(END, "is a handy tool for preparing the input and output dataset for programming competition. ")
-        txt.insert(END, 'Input generator is implemented using CodeForces testlib.h library for C++. ')
+        txt.insert(END, 'Input generator is implemented using ')
+        txt.insert(END, 'CodeForces', self.hyperlink.add(partial(webbrowser.open, "https://www.codeforces.com/")))
+        txt.insert(END, ' testlib.h library for C++. ')
         txt.insert(END, "This tool is specially helpful for the problem author and tester of a programming competition.")
+        txt.insert(END, '\n\n')
+        txt.insert(END, 'Github Repository', self.hyperlink.add(partial(webbrowser.open, "https://github.com/skmonir/testcase_generator/")))
         txt.insert(END, '\n\n')
         txt.insert(END, 'Developed by ')
         txt.insert(END, 'Md Moniruzzaman', 'bold')
@@ -41,7 +48,7 @@ class About:
         txt.insert(END, ' ')
         txt.insert(END, 'LinkedIn', self.hyperlink.add(partial(webbrowser.open, "https://www.linkedin.com/in/skmonir/")))
         txt.insert(END, ' ')
-        txt.insert(END, 'Github Repo', self.hyperlink.add(partial(webbrowser.open, "https://www.github.com/skmonir/")))
+        txt.insert(END, 'Github', self.hyperlink.add(partial(webbrowser.open, "https://www.github.com/skmonir/")))
         txt.pack()
         txt.config(state=DISABLED)
 
