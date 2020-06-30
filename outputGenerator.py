@@ -2,7 +2,7 @@ import subprocess
 import pathlib
 import os
 from os import listdir
-from os.path import isfile, join
+from os.path import isfile, join, isdir
 import concurrent.futures
 import time
 
@@ -58,13 +58,13 @@ class OutputGenerator:
         directory = filedialog.askdirectory(title="Select The Directory Where Input Files Are Located")
         if len(directory) > 0:
             self.inputDirText.set(directory)
-            self.updateFieldData('input.inf', directory)
+            self.updateFieldData('out_input.inf', directory)
 
     def selectOutputDir(self):
         directory = filedialog.askdirectory(title="Select The Directory Where Output Files Will Be Saved")
         if len(directory) > 0:
             self.outputDirText.set(directory)
-            self.updateFieldData('output.inf', directory)
+            self.updateFieldData('out_output.inf', directory)
 
     def selectExeFile(self):
         filename = filedialog.askopenfilename(
@@ -73,7 +73,7 @@ class OutputGenerator:
             )
         if len(filename) > 0:
             self.exeFileText.set(filename)
-            self.updateFieldData('exe.inf', filename)
+            self.updateFieldData('out_exe.inf', filename)
 
     def writeLog(self, logText):
         if len(logText) > 0 and logText[0] == 'C':
@@ -91,12 +91,18 @@ class OutputGenerator:
     def populateField(self):
         path = self.rootpath + 'appdata\\files\\'
         
-        with open(path + 'input.inf', 'r') as inf:
-            self.inputDirText.set(inf.read())
-        with open(path + 'output.inf', 'r') as inf:
-            self.outputDirText.set(inf.read())
-        with open(path + 'exe.inf', 'r') as inf:
-            self.exeFileText.set(inf.read())
+        with open(path + 'out_input.inf', 'r') as inf:
+            directory = inf.read()
+            if isdir(directory):
+                self.inputDirText.set(directory)
+        with open(path + 'out_output.inf', 'r') as inf:
+            directory = inf.read()
+            if isdir(directory):
+                self.outputDirText.set(directory)
+        with open(path + 'out_exe.inf', 'r') as inf:
+            directory = inf.read()
+            if isfile(directory):
+                self.exeFileText.set(directory)
 
     def generateOutputBtnClicked(self):
         inputDirPath = self.inputDirText.get()

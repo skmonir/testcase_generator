@@ -26,7 +26,10 @@ class MainWindow:
 
 
     def initFiles(self):
-        files = ['input.inf', 'output.inf', 'exe.inf', 'empty.tgen', 'in_input.inf', 'script.tgen', 'tgenValidation.log']
+        files = [
+            'out_input.inf', 'out_output.inf', 'out_exe.inf', 'empty.tgen',
+            'in_input.inf', 'in_exe.inf','script.tgen', 'tgenValidation.log'
+        ]
 
         for file in files:
             filePath = self.rootpath + 'appdata\\files\\' + file
@@ -37,7 +40,7 @@ class MainWindow:
     def initMainWindowUI(self):
         self.root.title('Testcase Generator')
         # self.root.iconbitmap('favicon.ico')
-        self.root.iconbitmap(self.rootpath + 'appdata\\asset\\icon.ico')
+        self.root.iconbitmap(self.rootpath + 'appdata\\asset\\favicon.ico')
 
         w = 655 # width for the Tk root
         h = 610 # height for the Tk root

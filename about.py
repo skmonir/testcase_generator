@@ -25,7 +25,7 @@ class About:
         self.about.attributes("-toolwindow", 1)
         self.about.protocol("WM_DELETE_WINDOW", self.closeAboutWindow)
         self.about.grab_set()
-        self.about.iconbitmap(self.rootpath + 'appdata\\asset\\icon.ico')
+        self.about.iconbitmap(self.rootpath + 'appdata\\asset\\favicon.ico')
         txt = Text(self.about, padx=10, pady=10, font=("Consolas", 10), wrap='word')
         self.hyperlink = HyperlinkManager.HyperlinkManager(txt)
         txt.tag_configure('bold', font='Consolas 11 bold')

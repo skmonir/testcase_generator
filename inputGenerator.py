@@ -4,7 +4,7 @@ import pathlib
 import random
 import os
 from os import listdir
-from os.path import isfile, join
+from os.path import isfile, join, isdir
 import concurrent.futures
 
 from tkinter import *
@@ -144,7 +144,14 @@ class InputGenerator:
         path = self.rootpath + 'appdata\\files\\'
 
         with open(path + 'in_input.inf', 'r') as inf:
-            self.inputDirText.set(inf.read())
+            directory = (inf.read()).strip()
+            if isdir(directory):
+                self.inputDirText.set(directory)
+        
+        with open(path + 'in_exe.inf', 'r') as inf:
+            directory = (inf.read()).strip()
+            if isfile(directory):
+                self.exeFileText.set(directory)
 
 
     def selectInputDir(self):
@@ -161,6 +168,7 @@ class InputGenerator:
             )
         if len(filename) > 0:
             self.exeFileText.set(filename)
+            self.updateFieldData('in_exe.inf', filename)
 
 
     def generateMethodChanged(self):
