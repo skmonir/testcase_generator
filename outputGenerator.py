@@ -58,13 +58,13 @@ class OutputGenerator:
         directory = filedialog.askdirectory(title="Select The Directory Where Input Files Are Located")
         if len(directory) > 0:
             self.inputDirText.set(directory)
-            self.updateFieldData('out_input.inf', directory)
+            self.updateFieldData('out_input.dir', directory)
 
     def selectOutputDir(self):
         directory = filedialog.askdirectory(title="Select The Directory Where Output Files Will Be Saved")
         if len(directory) > 0:
             self.outputDirText.set(directory)
-            self.updateFieldData('out_output.inf', directory)
+            self.updateFieldData('out_output.dir', directory)
 
     def selectExeFile(self):
         filename = filedialog.askopenfilename(
@@ -73,7 +73,7 @@ class OutputGenerator:
             )
         if len(filename) > 0:
             self.exeFileText.set(filename)
-            self.updateFieldData('out_exe.inf', filename)
+            self.updateFieldData('out_exe.dir', filename)
 
     def writeLog(self, logText):
         if len(logText) > 0 and logText[0] == 'C':
@@ -91,15 +91,15 @@ class OutputGenerator:
     def populateField(self):
         path = self.rootpath + 'appdata\\files\\'
         
-        with open(path + 'out_input.inf', 'r') as inf:
+        with open(path + 'out_input.dir', 'r') as inf:
             directory = inf.read()
             if isdir(directory):
                 self.inputDirText.set(directory)
-        with open(path + 'out_output.inf', 'r') as inf:
+        with open(path + 'out_output.dir', 'r') as inf:
             directory = inf.read()
             if isdir(directory):
                 self.outputDirText.set(directory)
-        with open(path + 'out_exe.inf', 'r') as inf:
+        with open(path + 'out_exe.dir', 'r') as inf:
             directory = inf.read()
             if isfile(directory):
                 self.exeFileText.set(directory)

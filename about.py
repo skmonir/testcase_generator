@@ -36,7 +36,7 @@ class About:
         txt.insert(END, "is a handy tool for preparing the input and output dataset for programming competition. ")
         txt.insert(END, 'Input generator is implemented using ')
         txt.insert(END, 'CodeForces', self.hyperlink.add(partial(webbrowser.open, "https://www.codeforces.com/")))
-        txt.insert(END, ' testlib.h library for C++. ')
+        txt.insert(END, ' testlib.h library in C++. ')
         txt.insert(END, "This tool is specially helpful for the problem author and tester of a programming competition.")
         txt.insert(END, '\n\n')
         txt.insert(END, 'Github Repository', self.hyperlink.add(partial(webbrowser.open, "https://github.com/skmonir/testcase_generator/")))

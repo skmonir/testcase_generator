@@ -143,12 +143,12 @@ class InputGenerator:
     def populateField(self):
         path = self.rootpath + 'appdata\\files\\'
 
-        with open(path + 'in_input.inf', 'r') as inf:
+        with open(path + 'in_input.dir', 'r') as inf:
             directory = (inf.read()).strip()
             if isdir(directory):
                 self.inputDirText.set(directory)
         
-        with open(path + 'in_exe.inf', 'r') as inf:
+        with open(path + 'in_exe.dir', 'r') as inf:
             directory = (inf.read()).strip()
             if isfile(directory):
                 self.exeFileText.set(directory)
@@ -158,7 +158,7 @@ class InputGenerator:
         directory = filedialog.askdirectory(title="Select The Directory Where Input Files Will Be Saved")
         if len(directory) > 0:
             self.inputDirText.set(directory)
-            self.updateFieldData('in_input.inf', directory)
+            self.updateFieldData('in_input.dir', directory)
 
 
     def selectExeFile(self):
@@ -168,7 +168,7 @@ class InputGenerator:
             )
         if len(filename) > 0:
             self.exeFileText.set(filename)
-            self.updateFieldData('in_exe.inf', filename)
+            self.updateFieldData('in_exe.dir', filename)
 
 
     def generateMethodChanged(self):

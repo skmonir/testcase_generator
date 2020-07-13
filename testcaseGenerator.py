@@ -27,8 +27,8 @@ class MainWindow:
 
     def initFiles(self):
         files = [
-            'out_input.inf', 'out_output.inf', 'out_exe.inf', 'empty.tgen',
-            'in_input.inf', 'in_exe.inf','script.tgen', 'tgenValidation.log'
+            'out_input.dir', 'out_output.dir', 'out_exe.dir', 'empty.tgen',
+            'in_input.dir', 'in_exe.dir','script.tgen', 'tgenValidation.log'
         ]
 
         for file in files:
