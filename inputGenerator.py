@@ -20,7 +20,7 @@ class InputGenerator:
         self.app = ttk.Frame(notebook, width=655, height=610)
         self.app.pack(fill="both", expand=1)
 
-        self.rootpath = 'F:\\PROJECT\\Python\\TestcaseGenerator\\'
+        self.rootpath = '.\\'
         
         self.inputDirText = StringVar()
         self.exeFileText = StringVar()

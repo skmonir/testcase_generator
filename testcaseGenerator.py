@@ -12,7 +12,7 @@ import outputGenerator
 
 class MainWindow:
     def __init__(self):
-        self.rootpath = 'F:\\PROJECT\\Python\\TestcaseGenerator\\'
+        self.rootpath = '.\\'
         # self.root = mtTkinter.Tk()
         self.root = ThemedTk(theme="breeze")
         self.initFiles()

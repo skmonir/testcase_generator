@@ -6,7 +6,7 @@ from functools import partial
 
 class About:
     def __init__(self):
-        self.rootpath = 'F:\\PROJECT\\Python\\TestcaseGenerator\\'
+        self.rootpath = '.\\'
         self.openAbout()
 
     def openAbout(self):
