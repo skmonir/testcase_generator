@@ -11,6 +11,7 @@ from tkinter import *
 from tkinter import ttk
 from tkinter import filedialog
 from tkinter import messagebox
+import tkinter.scrolledtext as ScrolledText
 
 
 
@@ -58,6 +59,7 @@ class InputGenerator:
         self.fileSn = StringVar()
         self.selectedScript = StringVar()
         self.selectedScript.set(self.availableScript[0])
+        self.logs = []
 
         self.initUI()
         self.initVariables()
@@ -119,7 +121,10 @@ class InputGenerator:
         self.notepad.grid(row=5, column=0, padx=5, pady=10, ipadx=10, ipady = 10, rowspan = 5, columnspan=6, sticky = N + E + S + W)
 
         self.generateInputBtn = ttk.Button(self.app, text="Generate Input", width=15, command=self.generateInputBtnClicked)
-        self.generateInputBtn.grid(row=10, column=0, columnspan=6, padx=50, pady=10)
+        self.generateInputBtn.grid(row=10, column=0, columnspan=3, padx=20, pady=10)
+
+        self.viewLogBtn = ttk.Button(self.app, text="View Log", width=15, command=self.openLogWindow)
+        self.viewLogBtn.grid(row=10, column=3, columnspan=3, padx=20, pady=10)
         
 
     def initVariables(self):
@@ -131,6 +136,7 @@ class InputGenerator:
         self.fileSuff.set('.txt')
         self.generateMethod.set('exe')
         self.generateMethodChanged()
+        self.viewLogBtn["state"] = "disabled"
 
         self.populateTgenScriptConsole()
 
@@ -187,9 +193,6 @@ class InputGenerator:
             self.scriptOptions.grid_remove()
             self.insertScriptBtn.grid_remove()
 
-
-    def writeLog(self, logText):
-        self.logs.insert(END, logText)
 
     def insertScriptIntoCli(self):
         self.notepad.insert(INSERT, self.scriptDict[self.selectedScript.get()])
@@ -340,8 +343,8 @@ class InputGenerator:
         if self.fileMode.get() == 'Append':
             fileMode = 'a'
 
+        self.logs.append('##################################_Process Started_###################################\n')
         with concurrent.futures.ThreadPoolExecutor() as executor:
-            logs = []
             if generateMethod == 'cli':
                 paramId = random.randint(12345, 12345678987654321)
                 for i in range(numberOfFiles):
@@ -350,16 +353,18 @@ class InputGenerator:
                     scriptPath = self.rootpath + 'appdata\\files\\script.tgen'
                     input_file_path = inputDirText + '/' + filePref + str(fileSn) + fileSuff
                     fileSn = fileSn + 1
-                    logs.append(executor.submit(self.writeFile, cmd, scriptPath, input_file_path, fileMode))
+                    self.logs.append(executor.submit(self.writeFile, cmd, scriptPath, input_file_path, fileMode).result())
             else:
                 for i in range(numberOfFiles):
                     cmd = exeFileText + ' 1 ' + str(i)
                     scriptPath = self.rootpath + 'appdata\\files\\empty.tgen'
                     input_file_path = inputDirText + '/' + filePref + str(fileSn) + fileSuff
                     fileSn = fileSn + 1
-                    logs.append(executor.submit(self.writeFile, cmd, scriptPath, input_file_path, fileMode))
+                    self.logs.append(executor.submit(self.writeFile, cmd, scriptPath, input_file_path, fileMode).result())
 
+            self.logs.append('\n##################################_Process Finished_##################################\n\n')
             os.startfile(inputDirText)
+            self.viewLogBtn["state"] = "normal"
 
 
     def writeFile(self, cmd, inputFilePath, outputFilePath, fileMode):
@@ -368,8 +373,49 @@ class InputGenerator:
             try:
                 proc.communicate()
                 if proc.returncode != 0:
-                    return f'Failed File: ' + outputFilePath
+                    return f'Failed File: ' + self.getFileName(outputFilePath)
                 else:
-                    return f'Created File: ' + outputFilePath
+                    return f'Created File: ' + self.getFileName(outputFilePath)
             except subprocess.TimeoutExpired:
                 proc.kill()
+    
+    def openLogWindow(self):
+        self.logWindow = Toplevel()
+        w = 650
+        h = 340
+        ws = self.logWindow.winfo_screenwidth()
+        hs = self.logWindow.winfo_screenheight()
+        x = (ws/2) - (w/2)
+        y = (hs/2) - (h/2)
+        self.logWindow.geometry('%dx%d+%d+%d' % (w, h, x, y))
+        self.logWindow.resizable(0, 0)
+        self.logWindow.title('Input Generator Logs!')
+        self.logWindow.attributes("-toolwindow", 1)
+        self.logWindow.protocol("WM_DELETE_WINDOW", self.closeLogWindow)
+        self.logWindow.grab_set()
+
+        inputGeneratorLogs = ScrolledText.ScrolledText(self.logWindow, height=19, width=85)
+        inputGeneratorLogs.grid(row=0, column=0, columnspan=2, rowspan=6, pady=10, padx=10, ipady=5)
+        inputGeneratorLogs.tag_config('success', foreground='green')
+        inputGeneratorLogs.tag_config('failure', foreground='red')
+
+        for logText in self.logs:
+            if len(logText) > 0 and logText[0] == 'C':
+                inputGeneratorLogs.insert(END, logText + '\n', 'success')
+            elif len(logText) > 0 and logText[0] == 'F':
+                inputGeneratorLogs.insert(END, logText + '\n', 'failure')
+            else:
+                inputGeneratorLogs.insert(END, logText + '\n')
+
+        inputGeneratorLogs.config(state=DISABLED)
+
+
+    def closeLogWindow(self):
+        self.logWindow.grab_release()
+        self.logWindow.destroy()
+
+    def getFileName(self, filePath):
+        if isfile(filePath):
+            return os.path.basename(filePath)
+        else:
+            return 'Error in file name'
