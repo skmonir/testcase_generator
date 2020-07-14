@@ -154,8 +154,7 @@ class OutputGenerator:
 
     def collectOutputFiles(self, inputDirPath, outputDirPath, exeFilePath):
         self.loadingWindow.withdraw()
-        self.writeLog('Process Started.')
-        self.writeLog('')
+        self.writeLog('##################################_Process Started_###################################\n')
 
         allInputFiles = [f for f in listdir(inputDirPath) if isfile(join(inputDirPath, f))]
 
@@ -177,10 +176,10 @@ class OutputGenerator:
                 self.writeLog(log.result())
 
         self.writeLog('')
-        self.writeLog('Process Finished.')
-        self.writeLog('#####################################################################################')
+        self.writeLog('##################################_Process Finished_##################################\n')
         self.logs.config(state=DISABLED)
         self.closeLoadingWindow()
+        os.startfile(outputDirPath)
 
 
     def writeOutputFile(self, input_file_name, output_file_name, exeFilePath):
@@ -189,9 +188,16 @@ class OutputGenerator:
             try:
                 proc.communicate()
                 if proc.returncode != 0:
-                    return f'Failed File: {output_file_name}'
+                    return f'Failed File: {self.getFileName(output_file_name)}'
                 else:
-                    return f'Created File: {output_file_name}'
+                    return f'Created File: {self.getFileName(output_file_name)}'
             except subprocess.TimeoutExpired:
                 proc.kill()
                 print('Time Limit Exceeded')
+
+    
+    def getFileName(self, filePath):
+        if isfile(filePath):
+            return os.path.basename(filePath)
+        else:
+            return 'Error in file name'
