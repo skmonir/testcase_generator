@@ -10,7 +10,7 @@
 # Screenshots
 Input Generator screen. The script in the CLI is for generating a tree of nodes 10 to 15.<br>
 
-![](./appdata/screenshots/InputGenerator.JPG)
+![](./appdata/screenshots/InputGeneratorScreen.JPG)
 
 <br>
 Successfully generated input folder. <br>
