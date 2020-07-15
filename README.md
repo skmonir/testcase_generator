@@ -8,6 +8,29 @@
     For every programming problem there are some input dataset and corresponding output dataset. That means a solver's souce code will be considered correct if the source code runs against the input dataset and produces output exactly same as the judge output dataset. So judge output should be accurate. Output Generator runs the judge solution executable(.exe) against the input dataset and prepare output dataset accordingly in just a few seconds.
 
 # Screenshots
+Input Generator screen. The script in the CLI is for generating a tree of nodes 10 to 15.<br>
+
+![](./appdata/screenshots/InputGenerator.JPG)
+
+<br>
+Successfully generated input folder. <br>
+
+![](./appdata/screenshots/InputFolder.JPG)
+
+<br>
+Input Generator logs. <br>
+
+![](./appdata/screenshots/InputLog.JPG)
+
+<br>
+Output Generator screen. <br>
+
+![](./appdata/screenshots/OutputGenerator.JPG)
+
+<br>
+Successfully generated output folder. <br>
+
+![](./appdata/screenshots/OutputFolder.JPG)
 
 # Installation
 **Testcase Generator** runs on WINDOWS. 
