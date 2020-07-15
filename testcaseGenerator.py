@@ -38,9 +38,9 @@ class MainWindow:
                 f.close()
 
     def initMainWindowUI(self):
-        self.root.title('Testcase Generator 1.0')
+        self.root.title('Testcase Generator')
         # self.root.iconbitmap('favicon.ico')
-        self.root.iconbitmap(self.rootpath + 'appdata\\asset\\favicon.ico')
+        self.root.iconbitmap(self.rootpath + 'appdata\\images\\favicon.ico')
 
         w = 655 # width for the Tk root
         h = 610 # height for the Tk root
