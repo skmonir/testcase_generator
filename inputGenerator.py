@@ -133,7 +133,7 @@ class InputGenerator:
         self.fileMode.set('Write')
         self.filePref.set('input')
         self.fileSn.set('1')
-        self.fileSuff.set('.txt')
+        self.fileSuff.set('txt')
         self.generateMethod.set('exe')
         self.generateMethodChanged()
         self.viewLogBtn["state"] = "disabled"
@@ -351,7 +351,7 @@ class InputGenerator:
                     paramId = paramId + 1
                     cmd = self.rootpath + 'appdata\\bin\\generator.exe' + ' ' + str(testPerFile) + ' ' + str(paramId)
                     scriptPath = self.rootpath + 'appdata\\files\\script.tgen'
-                    input_file_path = inputDirText + '/' + filePref + str(fileSn) + fileSuff
+                    input_file_path = inputDirText + '/' + filePref + str(fileSn) + '.' + fileSuff
                     fileSn = fileSn + 1
                     self.logs.append(executor.submit(self.writeFile, cmd, scriptPath, input_file_path, fileMode).result())
             else:
