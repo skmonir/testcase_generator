@@ -1,5 +1,5 @@
 # Introduction
-**Testcase Generator** is a handy tool for preparing the input and output dataset for programming problem. Input generator is implemented using [CodeForces](https://www.codeforces.com/) [testlib.h](https://codeforces.com/testlib) library in C++. This tool is specially helpful for the problem author and tester of a programming competition.
+**Testcase Generator** is a standalone desktop application to prepare the input and output dataset for programming problem. Input generator is implemented using [CodeForces](https://www.codeforces.com/) [testlib.h](https://codeforces.com/testlib) library in C++. This tool is specially helpful for the problem author and tester of a programming competition.
 
 # Features
 * ## Input Generator
@@ -36,13 +36,10 @@ Successfully generated output folder. <br>
 **Testcase Generator** runs on WINDOWS. 
 
 **Installation steps**:
-* Download the installation setup file from [here]().
+* Download the installation setup file from [here](https://github.com/skmonir/testcase_generator/releases).
 * Double click on the setup to start the installation.
 * Select a directory where you want to install and click install.
-* After installation is successful go to the installation directory.
-* Find the file **testcaseGenerator.exe**. You can directly open the application by double clicking this file or you can create a shortcut on the Desktop for quick access.
-* To create a shortcut on the Desktop:<br>
-    `right click on testcaseGenerator.exe > Send to > Desktop(create shortcut)`
+* After the installation is successful, you will find Testcase Generator shortcut on the Desktop for quick access.
 * Open the shortcut from Desktop and enjoy.
 
 # Components
@@ -60,19 +57,22 @@ Successfully generated output folder. <br>
         In the example in Write mode, if we do the same in Append mode, then the file will contain both lines after Append operation.
 
     * ### `Test/File`
-        Defines the number of testcases for each input file. More formally, it is used for multitest input dataset. `N\A` means there is no multitest. Any other numeric value means the number of testcases for each input file.
+        Defines the number of testcases for each input file. More formally, it is used for multitest input dataset. `N\A` means there is no multitest. Any other numeric value(Lets define as `T`) means the number of testcases for each input file. So the script/generator executable will run `T` times for a single input file.
 
         **Example**: Suppose we want to generate an array of 5 integers in range [1, 10].
         
         For `Test/File = N\A`, we will get a random array of size 5 like the following.<br>
         ```
+        5
         4 6 7 2 1
         ```
 
         For `Test/File = 2`, we will get random array of size 5 twice like the following.
         ```
         2
+        5
         4 6 7 2 1
+        5
         2 10 8 9 5
         ```
     
@@ -101,7 +101,7 @@ Successfully generated output folder. <br>
         This is the simplest method to write script for generator. Introducing a new command line script named `TGen Script` for generating input dataset. A Command Line Interface(CLI) is integrated with the application. Also for the quick access of the available commands, there is a dropdown menu from where we can select expected command and insert it to our CLI.<br>
 
         ```
-        Note: All available commands will be described in the section "Available TGen Commands"
+        Note: All available commands will be described in the section "About TGen Commands"
         ```
 
     * ### `Input Directory`
@@ -126,7 +126,110 @@ Successfully generated output folder. <br>
     * ### `Executable File`
         The executable(.exe) of the solution.
 
-# Available TGen Commands
+# About TGen Commands
+For the sake of simplicity, a new Command Line Script called `TGen Script` is introduced for the application, where to generate a Tree of 5 nodes, `<tree[5]>` is enough.<br>
+## General Rules
+* Each command is embraced with angular braces(`<>`) to separate from each other.
+* Each command has two main parts, `component` and `parameter`. For some commands, `parameter` part is not needed.
+* `component` defines the type of testcase. This part contains the component name specified by the application.<br>
+E.G. In command `<tree[5]>`, `tree` is the name of the component. For command `<connected_graph[5:10]>`, `connected_graph` is the name of component.
+* `parameter` defines the information needed for the specified `component`. `parameter` is embraced with square brackets(`[]`) and parameters inside the square brackets are separated by a single colon(`:`).<br>
+E.G. In command `<tree[5]>`, `[5]` defines `parameter`. For command `<connected_graph[5:10]>`, `[5:10]` is the `parameter` part.
+
+## Commands
+## `<line>` <br>
+Prints a newline. This command has no `parameter`.
+
+## `<space>` <br>
+Prints a space. This command has no `parameter`.
+
+## `<$var_name[min_value:max_value]>`
+We can generate **integer variable** with random value in range specified in `parameter` by this command. A random value will be printed and stored in the variable so that we use the variable for integer type parameter in any subsequent command. <br>
+
+* Variable name is defined in the `component` part and must precede with dollar sign(`$`). Variable name should contain alphabets and/or only symbol `underscore` (`_`).
+
+* `parameter` part defines the range in integer data type.
+    * `min_value`: The minimum value of the variable.
+    * `max_value`: The maximum value of the variable.
+
+Note that, `min_value` shouldn't be greater than `max_value`.
+
+**Command**<br>
+```
+<$n[10:15]>
+```
+**Prints**<br>
+A random value in range [10:15]
+```
+13
+```
+
+## `<int_array[size:min_value:max_value:isDistinct:end_with]>`
+Prints integer array.
+* `size`: The size of the array. Accepts any `int` type value or variable.
+* `min_value`: The minimum `int` type value of the elements of the array.
+* `max_value`: The maximum `int` type value of the elements of the array.
+* `isDistinct`: Accepts `0` or `1`, where `1` means the array will be distinct, `0` means not.
+* `end_with`: Array elements will be separated by the value of `end_with`. Accepts `space` or `line`.
+
+Note that, `min_value` shouldn't be greater than `max_value`.
+
+**Command**<br>
+```
+<$n[5:10]>
+<line>
+<int_array[$n:1:10:1:space]>
+```
+**Prints**<br>
+A space separated distinct array of size $n[5-10]
+```
+8
+5 9 10 1 4 3 7 6
+```
+
+## `<int_pair[size:min_value:max_value:isSecondGreaterEqual]>`
+Prints integer pair each in one line.
+* `size`: The number of pairs to generate. Accepts any `int` type value or variable.
+* `min_value`: The minimum `int` type value of the pair element.
+* `max_value`: The maximum `int` type value of the pair element.
+* `isSecondGreaterEqual`: Accepts `0` or `1`, where `1` means the first element of the pair **will not be greater** than the second element, `0` means otherwise.
+
+Note that, `min_value` shouldn't be greater than `max_value`.
+
+**Command**<br>
+```
+<$n[5:10]>
+<line>
+<int_pair[$n:1:10:1]>
+```
+**Prints**<br>
+prints $n[5-10] integer pair in each line.
+```
+5
+4 6
+2 3
+2 6
+5 10
+3 8
+```
+
+## `<int_permutation[size:indexing]>`
+Prints an integer permutation.
+* `size`: The number of pairs to generate. Accepts any `int` type value or variable.
+* `indexing`: The base index of the permutation. Accepts `0` or `1`, where `0` means the permutation will be 0-indexed, `1` means 1-indexed.
+
+**Command**<br>
+```
+<$n[5:10]>
+<line>
+<int_permutation[$n:0]>
+```
+**Prints**<br>
+prints 0-indexed permutation of size $n[5-10].
+```
+8
+5 2 3 7 0 4 6 1
+```
 
 # Bottlenecks
-The application is implemented using [Python Tkinter](https://docs.python.org/3/library/tkinter.html) GUI framework for developing light desktop application. Tkinter is single threaded framework and it doesn't allow any other thread on the application. Basically, when any other thread is spawned the framework prevents interaction with the UI. Input Generator and Output Generator both uses multiple thread creation for faster performance. So be careful not to put heavy load on the application. Otherwise the application will be crashed and you will end up blamming me.
+The application is implemented using [Python Tkinter](https://docs.python.org/3/library/tkinter.html) GUI framework for developing light desktop application. Tkinter is single threaded framework and it doesn't allow any other thread on the application. Basically, when any other thread is spawned the framework prevents interaction with the UI. Input Generator and Output Generator both uses multiple thread creation for faster performance. So be careful not to put heavy load on the application. Otherwise the application will be crashed and you will end up blaming me. :grin:
