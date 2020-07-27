@@ -158,14 +158,14 @@ Note that, `min_value` shouldn't be greater than `max_value`.
 ```
 <$n[10:15]>
 ```
-**Prints**<br>
+**Output**<br>
 A random value in range [10:15]
 ```
 13
 ```
 
 ## `<int_array[size:min_value:max_value:isDistinct:end_with]>`
-Prints integer array.
+Generates integer array.
 * `size`: The size of the array. Accepts any `int` type value or variable.
 * `min_value`: The minimum `int` type value of the elements of the array.
 * `max_value`: The maximum `int` type value of the elements of the array.
@@ -180,7 +180,7 @@ Note that, `min_value` shouldn't be greater than `max_value`.
 <line>
 <int_array[$n:1:10:1:space]>
 ```
-**Prints**<br>
+**Output**<br>
 A space separated distinct array of size $n[5-10]
 ```
 8
@@ -188,7 +188,7 @@ A space separated distinct array of size $n[5-10]
 ```
 
 ## `<int_pair[size:min_value:max_value:isSecondGreaterEqual]>`
-Prints integer pair each in one line.
+Generates integer pair each in one line.
 * `size`: The number of pairs to generate. Accepts any `int` type value or variable.
 * `min_value`: The minimum `int` type value of the pair element.
 * `max_value`: The maximum `int` type value of the pair element.
@@ -202,7 +202,7 @@ Note that, `min_value` shouldn't be greater than `max_value`.
 <line>
 <int_pair[$n:1:10:1]>
 ```
-**Prints**<br>
+**Output**<br>
 prints $n[5-10] integer pair in each line.
 ```
 5
@@ -214,7 +214,7 @@ prints $n[5-10] integer pair in each line.
 ```
 
 ## `<int_permutation[size:indexing]>`
-Prints an integer permutation.
+Generates an integer permutation.
 * `size`: The number of pairs to generate. Accepts any `int` type value or variable.
 * `indexing`: The base index of the permutation. Accepts `0` or `1`, where `0` means the permutation will be 0-indexed, `1` means 1-indexed.
 
@@ -224,12 +224,62 @@ Prints an integer permutation.
 <line>
 <int_permutation[$n:0]>
 ```
-**Prints**<br>
+**Output**<br>
 prints 0-indexed permutation of size $n[5-10].
 ```
 8
 5 2 3 7 0 4 6 1
 ```
+
+## `<string[number_of_string:min_size:max_size:max_total_size:charset]>`
+Generates specified number of strings.
+* `number_of_string`: The number of strings to generate. Accepts any `int` type value or variable.
+* `min_size`: The minimum size of each string.
+* `max_size`: The maximum size of each string.
+* `max_total_size`: The maximum total size of all strings.
+* `charset`: Alpha-numeric character set notation. Three available notations are `a-z`, `A-Z` and `0-9`. One or more of them can be used in any order like `a-zA-Z0-9`, `a-z0-9`, `0-9A-Z` etc. But make sure not to put any extra character in charset notation.
+
+## `<tree[vertices]>`
+Generates a tree.
+* `vertices`: The number of vertices of the tree. Accepts any `int` type value or variable.
+
+## `<weighted_tree[vertices:min_value:max_value]>`
+Generates an weighted tree.
+* `vertices`: The number of vertices of the tree. Accepts any `int` type value or variable.
+* `min_value`: The minimum `int` type value of an edge.
+* `max_value`: The maximum `int` type value of an edge.
+
+## `<rooted_tree[vertices]>`
+Generates a tree rooted at node **1**.
+* `vertices`: The number of vertices of the rooted tree. Accepts any `int` type value or variable.
+
+## `<connected_graph[vertices:edges]>`
+Generates a connected graph.
+* `vertices`: The number of vertices of the graph. Accepts any `int` type value or variable.
+* `edges`: The number of edges of the graph. Accepts any `int` type value or variable.
+
+
+## `<weighted_connected_graph[vertices:edges:min_value:max_value]>`
+Generates a connected weighted graph.
+* `vertices`: The number of vertices of the graph. Accepts any `int` type value or variable.
+* `edges`: The number of edges of the graph. Accepts any `int` type value or variable.
+* `min_value`: The minimum `int` type value of an edge.
+* `max_value`: The maximum `int` type value of an edge.
+
+
+## `<int_matrix[row:column:min_value:max_value]>`
+Generates matrix where each element is an integer.
+* `row`: The number of row of the matrix. Accepts any `int` type value or variable.
+* `column`: The number of column of the matrix. Accepts any `int` type value or variable.
+* `min_value`: The minimum `int` type value of an element.
+* `max_value`: The maximum `int` type value of an element.
+
+
+## `<char_matrix[row:column:charset]>`
+Generates matrix where each element is a alpha-numeric character.
+* `row`: The number of row of the matrix. Accepts any `int` type value or variable.
+* `column`: The number of column of the matrix. Accepts any `int` type value or variable.
+* `charset`: Alpha-numeric character set notation. Three available notations are `a-z`, `A-Z` and `0-9`. One or more of them can be used in any order like `a-zA-Z0-9`, `a-z0-9`, `0-9A-Z` etc. But make sure not to put any extra character in charset notation.
 
 # Bottlenecks
 The application is implemented using [Python Tkinter](https://docs.python.org/3/library/tkinter.html) GUI framework for developing light desktop application. Tkinter is single threaded framework and it doesn't allow any other thread on the application. Basically, when any other thread is spawned the framework prevents interaction with the UI. Input Generator and Output Generator both uses multiple thread creation for faster performance. So be careful not to put heavy load on the application. Otherwise the application will be crashed and you will end up blaming me. :grin:
