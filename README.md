@@ -155,7 +155,7 @@ We can generate **integer variable** with random value in range specified in `pa
 Note that, `min_value` shouldn't be greater than `max_value`.
 
 **Command**<br>
-```
+```javascript
 <$n[10:15]>
 ```
 **Output**<br>
@@ -166,16 +166,16 @@ A random value in range [10:15]
 
 ## `<int_array[size:min_value:max_value:isDistinct:end_with]>`
 Generates integer array.
-* `size`: The size of the array. Accepts any `int` type value or variable.
-* `min_value`: The minimum `int` type value of the elements of the array.
-* `max_value`: The maximum `int` type value of the elements of the array.
+* `size`: The size of the array. Accepts any `integer` type value or variable.
+* `min_value`: The minimum `integer` type value of the elements of the array.
+* `max_value`: The maximum `integer` type value of the elements of the array.
 * `isDistinct`: Accepts `0` or `1`, where `1` means the array will be distinct, `0` means not.
 * `end_with`: Array elements will be separated by the value of `end_with`. Accepts `space` or `line`.
 
 Note that, `min_value` shouldn't be greater than `max_value`.
 
 **Command**<br>
-```
+```javascript
 <$n[5:10]>
 <line>
 <int_array[$n:1:10:1:space]>
@@ -189,15 +189,15 @@ A space separated distinct array of size $n[5-10]
 
 ## `<int_pair[size:min_value:max_value:isSecondGreaterEqual]>`
 Generates integer pair each in one line.
-* `size`: The number of pairs to generate. Accepts any `int` type value or variable.
-* `min_value`: The minimum `int` type value of the pair element.
-* `max_value`: The maximum `int` type value of the pair element.
+* `size`: The number of pairs to generate. Accepts any `integer` type value or variable.
+* `min_value`: The minimum `integer` type value of the pair element.
+* `max_value`: The maximum `integer` type value of the pair element.
 * `isSecondGreaterEqual`: Accepts `0` or `1`, where `1` means the first element of the pair **will not be greater** than the second element, `0` means otherwise.
 
 Note that, `min_value` shouldn't be greater than `max_value`.
 
 **Command**<br>
-```
+```javascript
 <$n[5:10]>
 <line>
 <int_pair[$n:1:10:1]>
@@ -215,11 +215,11 @@ Generates $n[5-10] integer pair in each line.
 
 ## `<int_permutation[size:indexing]>`
 Generates an integer permutation.
-* `size`: The number of pairs to generate. Accepts any `int` type value or variable.
+* `size`: The number of pairs to generate. Accepts any `integer` type value or variable.
 * `indexing`: The base index of the permutation. Accepts `0` or `1`, where `0` means the permutation will be 0-indexed, `1` means 1-indexed.
 
 **Command**<br>
-```
+```javascript
 <$n[5:10]>
 <line>
 <int_permutation[$n:0]>
@@ -233,7 +233,7 @@ Generates 0-indexed permutation of size $n[5-10].
 
 ## `<string[number_of_string:min_size:max_size:max_total_size:charset]>`
 Generates specified number of strings.
-* `number_of_string`: The number of strings to generate. Accepts any `int` type value or variable.
+* `number_of_string`: The number of strings to generate. Accepts any `integer` type value or variable.
 * `min_size`: The minimum size of each string.
 * `max_size`: The maximum size of each string.
 * `max_total_size`: The maximum total size of all strings.
@@ -242,7 +242,7 @@ Generates specified number of strings.
 Note that, `(number_of_string * max_size) <= max_total_size`.
 
 **Command**<br>
-```
+```javascript
 <string[5:3:5:30:A-Z0-9a-z]>
 ```
 **Output**<br>
@@ -257,10 +257,10 @@ tFC
 
 ## `<tree[vertices]>`
 Generates a tree.
-* `vertices`: The number of vertices of the tree. Accepts any `int` type value or variable.
+* `vertices`: The number of vertices of the tree. Accepts any `integer` type value or variable.
 
 **Command**<br>
-```
+```javascript
 <$n[5:10]>
 <line>
 <tree[$n]>
@@ -281,12 +281,12 @@ Generates a random Tree of $n[5-10] nodes.
 
 ## `<weighted_tree[vertices:min_value:max_value]>`
 Generates an weighted tree.
-* `vertices`: The number of vertices of the tree. Accepts any `int` type value or variable.
-* `min_value`: The minimum `int` type value of an edge.
-* `max_value`: The maximum `int` type value of an edge.
+* `vertices`: The number of vertices of the tree. Accepts any `integer` type value or variable.
+* `min_value`: The minimum `integer` type value of an edge.
+* `max_value`: The maximum `integer` type value of an edge.
 
 **Command**<br>
-```
+```javascript
 <$n[5:10]>
 <line>
 <weighted_tree[$n:10:15]>
@@ -307,10 +307,10 @@ Generates a random Tree of $n[5-10] nodes where each edge's weight is in between
 
 ## `<rooted_tree[vertices]>`
 Generates a tree rooted at node **1**.
-* `vertices`: The number of vertices of the rooted tree. Accepts any `int` type value or variable.
+* `vertices`: The number of vertices of the rooted tree. Accepts any `integer` type value or variable.
 
 **Command**<br>
-```
+```javascript
 <$n[5:10]>
 <line>
 <rooted_tree[$n]>
@@ -324,11 +324,11 @@ Generates a random Tree of $n[5-10] nodes rooted at node **1**.
 
 ## `<connected_graph[vertices:edges]>`
 Generates a connected graph.
-* `vertices`: The number of vertices of the graph. Accepts any `int` type value or variable.
-* `edges`: The number of edges of the graph. Accepts any `int` type value or variable.
+* `vertices`: The number of vertices of the graph. Accepts any `integer` type value or variable.
+* `edges`: The number of edges of the graph. Accepts any `integer` type value or variable.
 
 **Command**<br>
-```
+```javascript
 <$n[5:5]><space><$m[4:10]>
 <line>
 <connected_graph[$n:$m]>
@@ -350,13 +350,13 @@ Generates a random connected graph of 5 nodes and 4-10 edges.
 
 ## `<weighted_connected_graph[vertices:edges:min_value:max_value]>`
 Generates a connected weighted graph.
-* `vertices`: The number of vertices of the graph. Accepts any `int` type value or variable.
-* `edges`: The number of edges of the graph. Accepts any `int` type value or variable.
-* `min_value`: The minimum `int` type value of an edge.
-* `max_value`: The maximum `int` type value of an edge.
+* `vertices`: The number of vertices of the graph. Accepts any `integer` type value or variable.
+* `edges`: The number of edges of the graph. Accepts any `integer` type value or variable.
+* `min_value`: The minimum `integer` type value of an edge.
+* `max_value`: The maximum `integer` type value of an edge.
 
 **Command**<br>
-```
+```javascript
 <$n[5:5]><space><$m[4:10]>
 <line>
 <weighted_connected_graph[$n:$m:10:15]>
@@ -379,13 +379,13 @@ Generates a random connected graph of 5 nodes and 4-10 edges of weight in betwee
 
 ## `<int_matrix[row:column:min_value:max_value]>`
 Generates matrix where each element is an integer.
-* `row`: The number of row of the matrix. Accepts any `int` type value or variable.
-* `column`: The number of column of the matrix. Accepts any `int` type value or variable.
-* `min_value`: The minimum `int` type value of an element.
-* `max_value`: The maximum `int` type value of an element.
+* `row`: The number of row of the matrix. Accepts any `integer` type value or variable.
+* `column`: The number of column of the matrix. Accepts any `integer` type value or variable.
+* `min_value`: The minimum `integer` type value of an element.
+* `max_value`: The maximum `integer` type value of an element.
 
 **Command**<br>
-```
+```javascript
 <$n[4:6]><space><$m[4:6]>
 <line>
 <int_matrix[$n:$m:1:9]>
@@ -404,12 +404,12 @@ Generates a random integer matrix of $n[4-6] rows and $m[4-6] columns where each
 
 ## `<char_matrix[row:column:charset]>`
 Generates matrix where each element is a alpha-numeric character.
-* `row`: The number of row of the matrix. Accepts any `int` type value or variable.
-* `column`: The number of column of the matrix. Accepts any `int` type value or variable.
+* `row`: The number of row of the matrix. Accepts any `integer` type value or variable.
+* `column`: The number of column of the matrix. Accepts any `integer` type value or variable.
 * `charset`: Alpha-numeric character set notation. Three available notations are `a-z`, `A-Z` and `0-9`. One or more of them can be used in any order like `a-zA-Z0-9`, `a-z0-9`, `0-9A-Z` etc. But make sure not to put any extra character in charset notation.
 
 **Command**<br>
-```
+```javascript
 <$n[4:6]><space><$m[4:6]>
 <line>
 <char_matrix[$n:$m:a-zA-Z]>
@@ -426,6 +426,35 @@ QYNzo
 
 
 # Examples
+## Script to generate testcase for [D. Serval and Rooted Tree](https://codeforces.com/problemset/problem/1153/D).
+```javascript
+<$n[2:300000]>
+<line>
+<int_array[$n:0:1:0:space]>
+<line>
+<rooted_tree[$n]>
+```
+
+
+## Script to generate testcase for [F. TorCoder](https://codeforces.com/contest/240/problem/F).
+```javascript
+<$n[1:100000]><space><$m[1:100000]>
+<line>
+<string[1:$n:$n:$n:a-z]>
+<line>
+<int_pair[$m:1:$n:1]>
+```
+
+## Script to generate testcase for [D. Birthday](https://codeforces.com/contest/494/problem/D).
+```javascript
+<$n[1:100000]>
+<line>
+<weighted_tree[$n:1:1000000000]>
+<line>
+<$q[1:100000]>
+<line>
+<int_pair[$q:1:$n:0]>
+```
 
 # Bottleneck
 The application is implemented using [Python Tkinter](https://docs.python.org/3/library/tkinter.html) GUI framework for developing light desktop application. Tkinter is single threaded framework and it doesn't allow any other thread on the application. Basically, when any other thread is spawned the framework prevents interaction with the UI. Input Generator and Output Generator both uses multiple thread creation for faster performance. So be careful not to put heavy load on the application. Otherwise the application will be crashed and you will end up blaming me. :grin:
