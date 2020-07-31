@@ -203,7 +203,7 @@ Note that, `min_value` shouldn't be greater than `max_value`.
 <int_pair[$n:1:10:1]>
 ```
 **Output**<br>
-prints $n[5-10] integer pair in each line.
+Generates $n[5-10] integer pair in each line.
 ```
 5
 4 6
@@ -225,7 +225,7 @@ Generates an integer permutation.
 <int_permutation[$n:0]>
 ```
 **Output**<br>
-prints 0-indexed permutation of size $n[5-10].
+Generates 0-indexed permutation of size $n[5-10].
 ```
 8
 5 2 3 7 0 4 6 1
@@ -239,9 +239,45 @@ Generates specified number of strings.
 * `max_total_size`: The maximum total size of all strings.
 * `charset`: Alpha-numeric character set notation. Three available notations are `a-z`, `A-Z` and `0-9`. One or more of them can be used in any order like `a-zA-Z0-9`, `a-z0-9`, `0-9A-Z` etc. But make sure not to put any extra character in charset notation.
 
+Note that, `(number_of_string * max_size) <= max_total_size`.
+
+**Command**<br>
+```
+<string[5:3:5:30:A-Z0-9a-z]>
+```
+**Output**<br>
+Generates 5 alpha-numeric strings each in one line.
+```
+QVf14
+R4Q
+rbLl
+dr2M
+tFC
+```
+
 ## `<tree[vertices]>`
 Generates a tree.
 * `vertices`: The number of vertices of the tree. Accepts any `int` type value or variable.
+
+**Command**<br>
+```
+<$n[5:10]>
+<line>
+<tree[$n]>
+```
+**Output**<br>
+Generates a random Tree of $n[5-10] nodes.
+```
+9
+2 9
+6 1
+7 9
+1 9
+6 8
+5 2
+4 3
+4 7
+```
 
 ## `<weighted_tree[vertices:min_value:max_value]>`
 Generates an weighted tree.
@@ -249,14 +285,67 @@ Generates an weighted tree.
 * `min_value`: The minimum `int` type value of an edge.
 * `max_value`: The maximum `int` type value of an edge.
 
+**Command**<br>
+```
+<$n[5:10]>
+<line>
+<weighted_tree[$n:10:15]>
+```
+**Output**<br>
+Generates a random Tree of $n[5-10] nodes where each edge's weight is in between 10-15.
+```
+9
+4 1 12
+2 3 14
+6 5 12
+9 1 15
+3 9 15
+8 3 13
+5 2 14
+4 7 11
+```
+
 ## `<rooted_tree[vertices]>`
 Generates a tree rooted at node **1**.
 * `vertices`: The number of vertices of the rooted tree. Accepts any `int` type value or variable.
+
+**Command**<br>
+```
+<$n[5:10]>
+<line>
+<rooted_tree[$n]>
+```
+**Output**<br>
+Generates a random Tree of $n[5-10] nodes rooted at node **1**.
+```
+10
+8 6 7 4 8 1 7 3 8
+```
 
 ## `<connected_graph[vertices:edges]>`
 Generates a connected graph.
 * `vertices`: The number of vertices of the graph. Accepts any `int` type value or variable.
 * `edges`: The number of edges of the graph. Accepts any `int` type value or variable.
+
+**Command**<br>
+```
+<$n[5:5]><space><$m[4:10]>
+<line>
+<connected_graph[$n:$m]>
+```
+**Output**<br>
+Generates a random connected graph of 5 nodes and 4-10 edges.
+```
+5 8
+3 1
+4 5
+3 5
+5 4
+2 5
+4 3
+2 5
+2 1
+```
 
 
 ## `<weighted_connected_graph[vertices:edges:min_value:max_value]>`
@@ -266,6 +355,27 @@ Generates a connected weighted graph.
 * `min_value`: The minimum `int` type value of an edge.
 * `max_value`: The maximum `int` type value of an edge.
 
+**Command**<br>
+```
+<$n[5:5]><space><$m[4:10]>
+<line>
+<weighted_connected_graph[$n:$m:10:15]>
+```
+**Output**<br>
+Generates a random connected graph of 5 nodes and 4-10 edges of weight in between 10-15.
+```
+5 9
+1 5 13
+2 5 15
+4 3 12
+4 2 12
+2 3 11
+2 1 15
+5 4 14
+3 5 15
+5 4 12
+```
+
 
 ## `<int_matrix[row:column:min_value:max_value]>`
 Generates matrix where each element is an integer.
@@ -274,6 +384,23 @@ Generates matrix where each element is an integer.
 * `min_value`: The minimum `int` type value of an element.
 * `max_value`: The maximum `int` type value of an element.
 
+**Command**<br>
+```
+<$n[4:6]><space><$m[4:6]>
+<line>
+<int_matrix[$n:$m:1:9]>
+```
+**Output**<br>
+Generates a random integer matrix of $n[4-6] rows and $m[4-6] columns where each element is in between 1-10.
+```
+5 6
+6 5 9 4 8 5
+9 3 7 6 7 9
+4 4 5 6 9 7
+8 8 8 4 9 6
+7 7 8 9 5 7
+```
+
 
 ## `<char_matrix[row:column:charset]>`
 Generates matrix where each element is a alpha-numeric character.
@@ -281,5 +408,24 @@ Generates matrix where each element is a alpha-numeric character.
 * `column`: The number of column of the matrix. Accepts any `int` type value or variable.
 * `charset`: Alpha-numeric character set notation. Three available notations are `a-z`, `A-Z` and `0-9`. One or more of them can be used in any order like `a-zA-Z0-9`, `a-z0-9`, `0-9A-Z` etc. But make sure not to put any extra character in charset notation.
 
-# Bottlenecks
+**Command**<br>
+```
+<$n[4:6]><space><$m[4:6]>
+<line>
+<char_matrix[$n:$m:a-zA-Z]>
+```
+**Output**<br>
+Generates a random character matrix of $n[4-6] rows and $m[4-6] columns where each element is an uppercase or lowercase latin letter.
+```
+4 5
+RmbAI
+WhmtP
+CjmMy
+QYNzo
+```
+
+
+# Examples
+
+# Bottleneck
 The application is implemented using [Python Tkinter](https://docs.python.org/3/library/tkinter.html) GUI framework for developing light desktop application. Tkinter is single threaded framework and it doesn't allow any other thread on the application. Basically, when any other thread is spawned the framework prevents interaction with the UI. Input Generator and Output Generator both uses multiple thread creation for faster performance. So be careful not to put heavy load on the application. Otherwise the application will be crashed and you will end up blaming me. :grin:
