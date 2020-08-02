@@ -140,6 +140,8 @@ class InputGenerator:
 
         self.populateTgenScriptConsole()
 
+        self.isBinReady('validator')
+        self.isBinReady('generator')
     
     def updateFieldData(self, field, value):
         file_name = self.rootpath + 'appdata\\files\\' + field
@@ -264,7 +266,8 @@ class InputGenerator:
             if self.generateMethod.get() == 'cli':
                 self.prepareTgenScript()
 
-            validationMsg = self.validateTgenScript()
+            if (self.isBinReady('validator')):
+                validationMsg = self.validateTgenScript()
             
             if validationMsg == "OK":
                 self.openLoadingWindow()
@@ -280,6 +283,28 @@ class InputGenerator:
             file.write('END')
 
     
+    def isBinReady(self, srcName):
+        binFile = self.rootpath + 'appdata\\bin\\' + srcName + '.exe'
+        if isfile(binFile):
+            return True
+        else:
+            self.createBin(srcName)
+            return True
+        return False
+
+
+    def createBin(self, srcName):
+        srcName = self.rootpath + 'appdata\\bin\\' + srcName
+        srcPath = srcName + '.cc'
+        cmd = 'g++ -o ' + srcName + ' ' + srcPath
+        proc = subprocess.run(cmd, shell=True, capture_output=True, text=True)
+
+        if proc.returncode != 0:
+            print(proc.stderr)
+        else:
+            print('compiled successfully.')
+
+
     def validateTgenScript(self):
         cmd = self.rootpath + 'appdata\\bin\\validator.exe'
         inp = self.rootpath + 'appdata\\files\\script.tgen'
@@ -328,6 +353,8 @@ class InputGenerator:
 
     def generateInput(self):
         self.closeLoadingWindow()
+
+        self.isBinReady('generator')
 
         testPerFile = 0
         if (self.numberOfTest.get() != 'N\A'):
