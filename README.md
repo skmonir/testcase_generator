@@ -1,5 +1,5 @@
 # Introduction
-**Testcase Generator** is a standalone desktop application to prepare the input and output dataset for programming problem. Input generator is implemented using [CodeForces](https://www.codeforces.com/) [testlib.h](https://codeforces.com/testlib) library in C++. This tool is specially helpful for the problem author and tester of a programming competition.
+**Testcase Generator** is a desktop application to prepare the input and output dataset for programming problem. Input generator is implemented using [CodeForces](https://www.codeforces.com/) [testlib.h](https://codeforces.com/testlib) library in C++. This tool is specially helpful for the problem author and tester of a programming competition.
 
 # Features
 * ## Input Generator
@@ -33,7 +33,10 @@ Successfully generated output folder. <br>
 ![](./appdata/screenshots/OutputFolder.JPG)
 
 # Installation
-**Testcase Generator** runs on WINDOWS. 
+**Testcase Generator** runs on WINDOWS.
+
+**Prerequisite**:
+* Download MinGW and add the path to System Variable.
 
 **Installation steps**:
 * Download the installation setup file from [here](https://github.com/skmonir/testcase_generator/releases).
@@ -391,7 +394,7 @@ Generates matrix where each element is an integer.
 <int_matrix[$n:$m:1:9]>
 ```
 **Output**<br>
-Generates a random integer matrix of $n[4-6] rows and $m[4-6] columns where each element is in between 1-10.
+Generates a random integer matrix of $n[4-6] rows and $m[4-6] columns where each element is in between 1-9.
 ```
 5 6
 6 5 9 4 8 5
